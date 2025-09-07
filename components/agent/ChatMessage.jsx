@@ -6,40 +6,38 @@ export default function ChatMessage({ msg }) {
 
   if (msg.role === "system") {
     return (
-      <div className="text-center py-8">
-        <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
-          <Bot className="w-5 h-5 text-blue-600" />
-          <span className="text-sm font-medium text-slate-700">{msg.content}</span>
+      <div className="flex justify-center py-6 animate-in fade-in-0 duration-500">
+        <div className="inline-flex items-center gap-2 px-6 py-2 bg-slate-100/70 backdrop-blur-sm rounded-full border border-slate-200 shadow-sm text-slate-700 font-medium text-sm">
+          <Bot className="w-4 h-4 text-indigo-500" />
+          <span>{msg.content}</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`flex gap-4 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+    <div className={`flex gap-3 items-start animate-in fade-in-0 duration-500 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
       <Avatar className="w-8 h-8 shrink-0">
         <AvatarFallback
-          className={`text-white text-sm font-semibold ${
+          className={`text-white text-sm font-semibold shadow-md ${
             msg.role === "user"
-              ? "bg-gradient-to-r from-green-500 to-emerald-600"
-              : "bg-gradient-to-r from-blue-500 to-purple-600"
+              ? "bg-gradient-to-tr from-cyan-500 to-blue-600"
+              : "bg-gradient-to-tr from-indigo-500 to-purple-600"
           }`}
         >
           {msg.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
         </AvatarFallback>
       </Avatar>
 
-      <div className={`max-w-[85%] sm:max-w-[75%] ${msg.role === "user" ? "text-right" : ""}`}>
-        <div className="mb-1">
-          <span className="text-xs font-medium text-muted-foreground">
-            {msg.role === "user" ? "You" : "AI Assistant"}
-          </span>
-        </div>
+      <div className={`flex flex-col gap-1 ${msg.role === "user" ? "items-end" : "items-start"}`}>
+        <span className="text-xs font-semibold text-muted-foreground px-2">
+          {msg.role === "user" ? "You" : "AI Assistant"}
+        </span>
         <div
-          className={`prose prose-sm max-w-none p-4 rounded-2xl shadow-sm transition-all hover:shadow-md ${
+          className={`prose prose-sm max-w-none p-3 shadow-md transition-all duration-200 ease-in-out ${
             msg.role === "user"
-              ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-br-md"
-              : "bg-white border border-slate-200 text-slate-800 rounded-bl-md"
+              ? "bg-gradient-to-tr from-blue-600 to-purple-600 text-white rounded-2xl rounded-tr-md"
+              : "bg-slate-100 text-slate-800 rounded-2xl rounded-tl-md"
           }`}
         >
           <p className="m-0 whitespace-pre-wrap leading-relaxed">{msg.content}</p>
